@@ -1,2 +1,6 @@
-streamlit==1.37.0
-python-dotenv
+streamlit
+pandas
+scikit-learn
+matplotlib
+seaborn
+pickle5
