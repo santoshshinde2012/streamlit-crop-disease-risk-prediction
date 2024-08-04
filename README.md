@@ -37,14 +37,14 @@ npm run build
 
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-app-jxe6thwxf43qfvabwmrrlk.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://crop-disease-risk-prediction.streamlit.app/)
 
 
-<!-- <p align="center">
-  <a href="https://app-app-jxe6thwxf43qfvabwmrrlk.streamlit.app/">
+<p align="center">
+  <a href="https://crop-disease-risk-prediction.streamlit.app/">
      <img src="wiki/demo.gif" alt="demp" />
   </a>
-</p> -->
+</p>
 
 ## Project Structure
 
@@ -80,7 +80,9 @@ streamlit-app/
 - [Understanding Streamlit's client-server architecture](https://docs.streamlit.io/develop/concepts/architecture/architecture)
 - [Wiki](https://github.com/streamlit/streamlit/wiki)
 
-
+## Tutorials 
+- [Getting Started with Streamlit and Custom Streamlit Components](https://medium.com/@santosh-shinde/getting-started-with-streamlit-and-custom-streamlit-components-491bd197cd9f)
+  
 
 ### Connect with me on
 <div id="badges">
