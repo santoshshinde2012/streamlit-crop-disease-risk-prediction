@@ -1,6 +1,14 @@
-# 📦 Streamlit App
+<p align="center">
+  <a href="https://github.com/santoshshinde2012/streamlit-crop-disease-risk-prediction/actions/workflows/main.yml" target=”_blank”>
+     <img src="https://github.com/santoshshinde2012/streamlit-crop-disease-risk-prediction/actions/workflows/main.yml/badge.svg?branch=master" alt="Github action workflow status" />
+  </a>
+</p>
+
+
+# 📦 [Streamlit App](https://crop-disease-risk-prediction.streamlit.app/)
 
 Streamlit is a powerful tool for creating interactive web applications using Python. However, there are times when the built-in components may not meet your specific needs. In such cases, you can create custom components using modern front-end technologies like Vite, React, and TypeScript. This guide will walk you through the process of setting up a custom component for your Streamlit app, enabling a seamless integration of sophisticated front-end features with the simplicity of Python.
+
 
 ## How to run locally
 
