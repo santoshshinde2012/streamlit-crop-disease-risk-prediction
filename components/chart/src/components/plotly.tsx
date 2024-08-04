@@ -1,7 +1,6 @@
 import { PlotData } from "plotly.js";
-import React, { useEffect } from "react";
+import React from "react";
 import Plot from "react-plotly.js";
-import { Streamlit } from "streamlit-component-lib";
 
 interface IProps {
   cropName?: string;
@@ -32,10 +31,10 @@ const PlotlyChart: React.FC<IProps> = ({
     x: temperature,
     y: humidity,
     z: soilMoisture,
-    hovertemplate: 
-    'Temperature: %{x}°C<br>' +
-    'Humidity: %{y}<br>' +
-    'Soil Moisture: %{z}<br><extra></extra>',
+    hovertemplate:
+      "Temperature: %{x}°C<br>" +
+      "Humidity: %{y}<br>" +
+      "Soil Moisture: %{z}<br><extra></extra>",
     text: riskPrediction,
     marker: {
       size: 3,
@@ -54,10 +53,6 @@ const PlotlyChart: React.FC<IProps> = ({
     },
   } as PlotData;
 
-  useEffect(() => {
-    Streamlit.setComponentValue('DONE');
-  },[]);
-
   const layout = {
     title: `<span>Crop (<b>${cropName}</b>) Disease Risk Prediction is <b style="color:${riskColors[riskPrediction.toString()]};text-transform: capitalize;">${riskPrediction.toString()}</b><span>`,
     autosize: true,
@@ -65,7 +60,7 @@ const PlotlyChart: React.FC<IProps> = ({
       xaxis: { title: "Temperature (°C)" },
       yaxis: { title: "Humidity" },
       zaxis: { title: "Soil Moisture" },
-    }
+    },
   };
 
   return <Plot data={[data]} layout={layout} />;

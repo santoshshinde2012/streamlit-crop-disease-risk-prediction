@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { PlotlyChart } from "./components/plotly";
 
 const ActionComponent: React.FC<ComponentProps> = ({ args }) => {
-  const [cropName, setCropName] = useState('');
+  const [cropName, setCropName] = useState("");
   const [temperature, setTemperature] = useState<number[]>([]);
   const [humidity, setHumidity] = useState<number[]>([]);
   const [soilMoisture, setSoilMoisture] = useState<number[]>([]);
@@ -16,8 +16,13 @@ const ActionComponent: React.FC<ComponentProps> = ({ args }) => {
   useEffect(() => {
     Streamlit.setFrameHeight();
     if (args.spec) {
-      const { crop_name, temperature, humidity, soil_moisture, risk_prediction } =
-        JSON.parse(args.spec);
+      const {
+        crop_name,
+        temperature,
+        humidity,
+        soil_moisture,
+        risk_prediction,
+      } = JSON.parse(args.spec);
       setCropName(crop_name);
       setTemperature(temperature || []);
       setHumidity(humidity || []);
@@ -28,7 +33,7 @@ const ActionComponent: React.FC<ComponentProps> = ({ args }) => {
 
   return (
     <PlotlyChart
-    cropName={cropName}
+      cropName={cropName}
       temperature={temperature}
       humidity={humidity}
       soilMoisture={soilMoisture}
