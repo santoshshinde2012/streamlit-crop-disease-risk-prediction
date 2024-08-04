@@ -3,8 +3,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
-import matplotlib.pyplot as plt
-import seaborn as sns
 import pickle
 from prediction_type import CropData
 from components import rchart_events
