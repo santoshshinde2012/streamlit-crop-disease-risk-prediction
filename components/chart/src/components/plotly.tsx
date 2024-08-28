@@ -56,6 +56,9 @@ const PlotlyChart: React.FC<IProps> = ({
   const layout = {
     title: `<span>Crop (<b>${cropName}</b>) Disease Risk Prediction is <b style="color:${riskColors[riskPrediction.toString()]};text-transform: capitalize;">${riskPrediction.toString()}</b><span>`,
     autosize: true,
+    responsive: true,
+    useResizeHandler: true,
+    height: 600,
     scene: {
       xaxis: { title: "Temperature (°C)" },
       yaxis: { title: "Humidity" },
