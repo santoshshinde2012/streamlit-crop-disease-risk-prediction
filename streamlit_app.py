@@ -1,87 +1,62 @@
 import streamlit as st
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 from components import rchart_events
 from dataclasses import asdict
-from prediction_type import CropData
+from predictions import data
+from predictions import predict_disease_risk
+from crops import CropData
+import altair as alt
 
+def page_dataset_overview():
+    st.title("Overview")
 
-# Create a synthetic dataset
-data = {
-    'crop_name': ['wheat', 'rice', 'maize', 'wheat', 'rice', 'maize', 'wheat', 'rice', 'maize', 'wheat', 'rice', 'maize'],
-    'temperature': [20, 25, 22, 21, 24, 23, 19, 26, 21, 20, 25, 22],
-    'humidity': [30, 50, 45, 32, 48, 47, 31, 52, 44, 30, 50, 45],
-    'soil_moisture': [40, 60, 55, 42, 58, 57, 41, 62, 54, 40, 60, 55],
-    'disease_risk': ['low', 'high', 'medium', 'low', 'high', 'medium', 'low', 'high', 'medium', 'low', 'high', 'medium']
-}
+    df = pd.DataFrame(data)
+    heatmap = alt.Chart(df).mark_rect().encode(
+        x='temperature:O',
+        y='humidity:O',
+        color=alt.Color('disease_risk:N', scale=alt.Scale(domain=['low', 'medium', 'high'], range=['green', 'gray', 'red'])),
+        tooltip=['temperature', 'humidity', 'soil_moisture']
+    ).properties(width=600, height=400)
 
-df = pd.DataFrame(data)
+    st.altair_chart(heatmap)
 
-# Encode categorical variable for crop_name
-crop_label_encoder = LabelEncoder()
-df['crop_name'] = crop_label_encoder.fit_transform(df['crop_name'])
+def page_data_visualization():
+    with st.sidebar:
+        st.title('Crop Disease Risk Prediction')
 
-# Encode target variable
-risk_label_encoder = LabelEncoder()
-df['disease_risk'] = risk_label_encoder.fit_transform(df['disease_risk'])
+        st.write("""
+        This application predicts the risk of crop disease based on the entered crop details.
+        """)
 
-# Features and target variable
-X = df[['crop_name', 'temperature', 'humidity', 'soil_moisture']]
-y = df['disease_risk']
+        crop_name = st.selectbox('Crop Name', ['wheat', 'rice', 'maize'])
+        temperature = st.slider('Temperature', min_value=10, max_value=40, value=20)
+        humidity = st.slider('Humidity', min_value=20, max_value=100, value=50)
+        soil_moisture = st.slider('Soil Moisture', min_value=20, max_value=100, value=50)
 
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    risk = predict_disease_risk(crop_name, temperature, humidity, soil_moisture)
 
-# Scale the features
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+    crop_data = CropData(
+        crop_name=crop_name,
+        temperature=[temperature],
+        humidity=[humidity],
+        soil_moisture=[soil_moisture],
+        risk_prediction=[risk]
+    )
 
-# Train the Random Forest classifier
-model = RandomForestClassifier(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
+    st.subheader("Crop Disease Risk Prediction - With Custom Component")
 
-# Function to predict disease risk based on crop name and other features
-def predict_disease_risk(crop_name, temperature, humidity, soil_moisture):
-    # Encode the crop name
-    crop_name_encoded = crop_label_encoder.transform([crop_name])[0]
+    crop_data_dict = asdict(crop_data)
+    rchart_events(crop_data_dict)
+
+def main():
+    st.sidebar.title("Navigation")
+    page = st.sidebar.radio("Go to", ["Dataset Overview", "Crop Disease Risk Prediction"])
     
-    # Prepare the feature vector
-    features = scaler.transform([[crop_name_encoded, temperature, humidity, soil_moisture]])
-    
-    # Predict the disease risk
-    risk_encoded = model.predict(features)[0]
-    
-    # Decode the risk
-    risk = risk_label_encoder.inverse_transform([risk_encoded])[0]
-    
-    return risk
+    if page == "Dataset Overview":
+        page_dataset_overview()
+    elif page == "Crop Disease Risk Prediction":
+        page_data_visualization()
 
-with st.sidebar:
-    st.title('Crop Disease Risk Prediction')
-
-    st.write("""
-    This application predicts the risk of crop disease based on the entered crop details.
-    """)
-
-    # Input fields
-    crop_name = st.selectbox('Crop Name', ['wheat', 'rice', 'maize'])
-    temperature = st.slider('Temperature', min_value=10, max_value=40, value=20)
-    humidity = st.slider('Humidity', min_value=20, max_value=100, value=50)
-    soil_moisture = st.slider('Soil Moisture', min_value=20, max_value=100, value=50)
-
-# if st.sidebar.button('Predict Disease Risk'):
-risk = predict_disease_risk(crop_name, temperature, humidity, soil_moisture)
-
-crop_data = CropData(
-    crop_name=crop_name,
-    temperature=[temperature],
-    humidity=[humidity],
-    soil_moisture=[soil_moisture],
-    risk_prediction=[risk]
-)
-
-crop_data_dict = asdict(crop_data)
-rchart_events(crop_data_dict)
+if __name__ == "__main__":
+    main()
