@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
 from components import rchart_events
 from dataclasses import asdict
 from predictions import data
