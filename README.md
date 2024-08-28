@@ -5,7 +5,7 @@
 </p>
 
 
-# 📦 [Streamlit App](https://crop-disease-risk-prediction.streamlit.app/)
+# 📦 [Streamlit Crop Disease Risk Prediction App](https://crop-disease-risk-prediction.streamlit.app/)
 
 Streamlit is a powerful tool for creating interactive web applications using Python. However, there are times when the built-in components may not meet your specific needs. In such cases, you can create custom components using modern front-end technologies like Vite, React, and TypeScript. This guide will walk you through the process of setting up a custom component for your Streamlit app, enabling a seamless integration of sophisticated front-end features with the simplicity of Python.
 
