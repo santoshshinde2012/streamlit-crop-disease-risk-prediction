@@ -43,7 +43,7 @@ def page_data_visualization():
         risk_prediction=[risk]
     )
 
-    st.subheader("Crop Disease Risk Prediction - With Custom Component")
+    st.subheader("Crop Disease Risk Prediction - With Component")
 
     crop_data_dict = asdict(crop_data)
     rchart_events(crop_data_dict)
