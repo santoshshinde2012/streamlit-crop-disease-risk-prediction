@@ -43,6 +43,13 @@ cd streamlit-app/rbutton/frontend
 npm run build
 ```
 
+5. Run Streamlit App
+
+```
+streamlit run streamlit_app.py
+
+```
+
 ## Demo App
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://crop-disease-risk-prediction.streamlit.app/)
